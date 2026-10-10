@@ -118,7 +118,9 @@ func ExampleWriter_WriteAll() {
 	}
 
 	w := csv.NewWriter(os.Stdout)
-	w.WriteAll(records) // calls Flush internally
+	if err := w.WriteAll(records); err != nil {
+		log.Fatalln("error writing csv:", err)
+	}
 
 	if err := w.Error(); err != nil {
 		log.Fatalln("error writing csv:", err)
